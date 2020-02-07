@@ -63,5 +63,10 @@ class ViewAssembler: Assembly {
             return registerVc
         }
         
+        container.register(NewsDetailViewController.self) { r in
+            let registerVc: NewsDetailViewController =  NewsDetailViewController.instantiateViewController(.main)
+            return registerVc
+        }
+        
     }
 }

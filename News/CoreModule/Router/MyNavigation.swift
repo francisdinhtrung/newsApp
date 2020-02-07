@@ -14,6 +14,7 @@ enum MyNavigation: Navigation {
     case profile(profileL: UserProfile)
     case login
     case register
+    case newsDetail(url: String)
 }
 
 struct MyAppNavigation: AppNavigation {
@@ -31,6 +32,10 @@ struct MyAppNavigation: AppNavigation {
                 return mainAssembleResolver.resolve(RegisterViewController.self)
             case .login:
                 return mainAssembleResolver.resolve(LoginViewController.self)
+            case .newsDetail(let url):
+                let vc = mainAssembleResolver.resolve(NewsDetailViewController.self)
+                vc?.url = url
+                return vc
             }
         }
         return UIViewController()

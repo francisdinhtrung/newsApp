@@ -65,6 +65,10 @@ class HomeViewController: BaseViewController {
         self.dataSource = dataSourceConfiguration()
         
         
+        weak var weakSelf = self
+        self.tableView.rx.modelSelected(ArticleViewModel.self).subscribe(onNext: { (item) in
+            weakSelf?.navigate(.newsDetail(url: item.article.url ?? ""))
+        }).disposed(by: rxDisposeBag)
         
     }
     
