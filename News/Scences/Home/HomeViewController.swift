@@ -64,10 +64,14 @@ class HomeViewController: BaseViewController {
         //datasource
         self.dataSource = dataSourceConfiguration()
         
-        
-        weak var weakSelf = self
-        self.tableView.rx.modelSelected(ArticleViewModel.self).subscribe(onNext: { (item) in
-            weakSelf?.navigate(.newsDetail(url: item.article.url ?? ""))
+
+        self.tableView.rx.modelSelected(ArticleViewModel.self).subscribe(onNext: { [weak self](item) in
+            if let strongSelf = self {
+                if let vc = mainAssembleResolver.resolve(NewsDetailViewController.self) {
+                    vc.url = item.article.url ?? ""
+                    strongSelf.navigationController?.pushViewController(vc)
+                }
+            }
         }).disposed(by: rxDisposeBag)
         
     }

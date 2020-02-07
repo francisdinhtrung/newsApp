@@ -21,7 +21,7 @@ class ViewAssembler: Assembly {
         container.register(MainTabViewController.self) { r in
             let mainTabbarController: MainTabViewController =  MainTabViewController.instantiateViewController(.main)
             mainTabbarController.viewControllers?.forEach{ (vc) in
-                switch vc {
+                switch (vc as? UINavigationController)?.topViewController {
                     case let homeVC as HomeViewController:
                          homeVC.viewModel = mainAssembleResolver.resolve(HomeViewModel.self)!
                 case let discovery as DiscoveryViewController:
