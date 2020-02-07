@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DiscoveryHeader" customModule="News" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="szi-Bu-twq" id="7db-jg-cBG"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="202"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="szi-Bu-twq">
+                    <rect key="frame" x="16" y="73.5" width="343" height="112.5"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Sb7-wA-3Gr">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISCOVERY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n8v-yf-6vF">
+                    <rect key="frame" x="16" y="25" width="343" height="26.5"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="n8v-yf-6vF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="B6t-zf-xFZ"/>
+                <constraint firstItem="szi-Bu-twq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="KlK-K1-eMG"/>
+                <constraint firstItem="szi-Bu-twq" firstAttribute="top" secondItem="n8v-yf-6vF" secondAttribute="bottom" constant="22" id="Ulh-59-HLx"/>
+                <constraint firstAttribute="trailing" secondItem="n8v-yf-6vF" secondAttribute="trailing" constant="16" id="eFl-QU-gpz"/>
+                <constraint firstItem="n8v-yf-6vF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="25" id="fZy-YH-duf"/>
+                <constraint firstAttribute="trailing" secondItem="szi-Bu-twq" secondAttribute="trailing" constant="16" id="gdG-Fu-Xep"/>
+                <constraint firstAttribute="bottom" secondItem="szi-Bu-twq" secondAttribute="bottom" constant="16" id="oSc-SS-pnY"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="205.79710144927537" y="186.83035714285714"/>
+        </view>
+    </objects>
+</document>

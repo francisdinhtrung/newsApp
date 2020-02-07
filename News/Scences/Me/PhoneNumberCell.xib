@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </array>
+        <array key="OpenSans-Semibold.ttf">
+            <string>OpenSans-Semibold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="KGk-i7-Jjw" customClass="PhoneNumberCell" customModule="AMP" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="57.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MOBILE NUMBER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMZ-Oi-Gnd">
+                        <rect key="frame" x="16" y="18" width="100.5" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="145" id="Zzq-4h-hxP"/>
+                            <constraint firstAttribute="height" constant="21" id="kYi-FL-B0D"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="asd" placeholder="Enter Phone Number" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gMF-Z0-HAB">
+                        <rect key="frame" x="125" y="16" width="234" height="25.5"/>
+                        <color key="textColor" red="0.11372549019607843" green="0.11372549019607843" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="16"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uuA-Rf-DOe">
+                        <rect key="frame" x="0.0" y="56.5" width="375" height="1"/>
+                        <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="R8q-2X-UQT"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="jMZ-Oi-Gnd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Hi6-Sc-R1N"/>
+                    <constraint firstItem="gMF-Z0-HAB" firstAttribute="leading" secondItem="jMZ-Oi-Gnd" secondAttribute="trailing" constant="8.5" id="Ja2-xq-cRD"/>
+                    <constraint firstAttribute="bottom" secondItem="uuA-Rf-DOe" secondAttribute="bottom" id="JgW-BT-alA"/>
+                    <constraint firstAttribute="trailing" secondItem="uuA-Rf-DOe" secondAttribute="trailing" id="OW7-D9-lgU"/>
+                    <constraint firstItem="jMZ-Oi-Gnd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="QVw-Cc-y2x"/>
+                    <constraint firstAttribute="bottom" secondItem="gMF-Z0-HAB" secondAttribute="bottom" constant="16" id="aMX-HU-KU4"/>
+                    <constraint firstItem="uuA-Rf-DOe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="jBi-KE-3Rf"/>
+                    <constraint firstAttribute="trailing" secondItem="gMF-Z0-HAB" secondAttribute="trailing" constant="16" id="nqd-v6-D2f"/>
+                    <constraint firstAttribute="bottom" secondItem="jMZ-Oi-Gnd" secondAttribute="bottom" constant="18.5" id="ovZ-o4-ebe"/>
+                    <constraint firstItem="gMF-Z0-HAB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="xt7-AE-7VH"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="phoneNumberTextField" destination="gMF-Z0-HAB" id="L4Y-sA-CEO"/>
+                <outlet property="titleTextField" destination="jMZ-Oi-Gnd" id="wUB-7Y-OuB"/>
+            </connections>
+            <point key="canvasLocation" x="138.40000000000001" y="153.82308845577214"/>
+        </tableViewCell>
+    </objects>
+</document>
