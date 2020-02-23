@@ -154,22 +154,6 @@ public extension String {
         return comps.joined(separator: "").count == 0 && hasLetters && hasNumbers
     }
 
-    /// SwifterSwift: Check if string is palindrome.
-    ///
-    ///     "abcdcba".isPalindrome -> true
-    ///     "Mom".isPalindrome -> true
-    ///     "A man a plan a canal, Panama!".isPalindrome -> true
-    ///     "Mama".isPalindrome -> false
-    ///
-    var isPalindrome: Bool {
-        let letters = filter { $0.isLetter }
-        guard !letters.isEmpty else { return false }
-        let midIndex = letters.index(letters.startIndex, offsetBy: letters.count / 2)
-        let firstHalf = letters[letters.startIndex..<midIndex]
-        let secondHalf = letters[midIndex..<letters.endIndex].reversed()
-        return !zip(firstHalf, secondHalf).contains(where: { $0.lowercased() != $1.lowercased() })
-    }
-
     #if canImport(Foundation)
     /// SwifterSwift: Check if string is valid email format.
     ///
@@ -238,7 +222,7 @@ public extension String {
     }
     #endif
 
-    #if canImport(Foundation)
+    #if canImport(Foundation) && !os(Linux)
     /// SwifterSwift: Check if string is a valid Swift number.
     ///
     /// Note:
@@ -253,11 +237,7 @@ public extension String {
     var isNumeric: Bool {
         let scanner = Scanner(string: self)
         scanner.locale = NSLocale.current
-        #if os(Linux)
-        return scanner.scanDecimal() != nil && scanner.isAtEnd
-        #else
         return scanner.scanDecimal(nil) && scanner.isAtEnd
-        #endif
     }
     #endif
 
@@ -617,8 +597,8 @@ public extension String {
     /// - Parameter range: Closed range.
     subscript(safe range: ClosedRange<Int>) -> String? {
         guard let lowerIndex = index(startIndex, offsetBy: max(0, range.lowerBound), limitedBy: endIndex) else { return nil }
-        guard let upperIndex = index(lowerIndex, offsetBy: range.upperBound - range.lowerBound, limitedBy: endIndex) else { return nil }
-        return String(self[lowerIndex...upperIndex])
+        guard let upperIndex = index(lowerIndex, offsetBy: range.upperBound - range.lowerBound + 1, limitedBy: endIndex) else { return nil }
+        return String(self[lowerIndex..<upperIndex])
     }
 
     #if os(iOS) || os(macOS)
@@ -1188,7 +1168,7 @@ public extension String {
 
 }
 
-#if canImport(Foundation)
+#if canImport(Foundation) && !os(Linux)
 
 // MARK: - NSString extensions
 public extension String {
@@ -1225,8 +1205,6 @@ public extension String {
 
     /// SwifterSwift: NSString appendingPathComponent(str: String)
     ///
-    /// - Note: This method only works with file paths (not, for example, string representations of URLs.
-    ///   See NSString [appendingPathComponent(_:)](https://developer.apple.com/documentation/foundation/nsstring/1417069-appendingpathcomponent)
     /// - Parameter str: the path component to append to the receiver.
     /// - Returns: a new string made by appending aString to the receiver, preceded if necessary by a path separator.
     func appendingPathComponent(_ str: String) -> String {

@@ -14,13 +14,12 @@ public extension UITableView {
 
     /// SwifterSwift: Index path of last row in tableView.
     var indexPathForLastRow: IndexPath? {
-        guard let lastSection = lastSection else { return nil }
         return indexPathForLastRow(inSection: lastSection)
     }
 
     /// SwifterSwift: Index of last section in tableView.
-    var lastSection: Int? {
-        return numberOfSections > 0 ? numberOfSections - 1 : nil
+    var lastSection: Int {
+        return numberOfSections > 0 ? numberOfSections - 1 : 0
     }
 
 }
@@ -46,7 +45,7 @@ public extension UITableView {
     /// - Parameter section: section to get last row in.
     /// - Returns: optional last indexPath for last row in section (if applicable).
     func indexPathForLastRow(inSection section: Int) -> IndexPath? {
-        guard numberOfSections > 0, section >= 0 else { return nil }
+        guard section >= 0 else { return nil }
         guard numberOfRows(inSection: section) > 0  else {
             return IndexPath(row: 0, section: section)
         }
@@ -178,10 +177,7 @@ public extension UITableView {
     /// - Parameter indexPath: An IndexPath to check
     /// - Returns: Boolean value for valid or invalid IndexPath
     func isValidIndexPath(_ indexPath: IndexPath) -> Bool {
-        return indexPath.section >= 0 &&
-            indexPath.row >= 0 &&
-            indexPath.section < numberOfSections &&
-            indexPath.row < numberOfRows(inSection: indexPath.section)
+        return indexPath.section < numberOfSections && indexPath.row < numberOfRows(inSection: indexPath.section)
     }
 
     /// SwifterSwift: Safely scroll to possibly invalid IndexPath

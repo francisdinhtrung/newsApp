@@ -15,7 +15,7 @@ public extension FileManager {
     ///
     /// - Parameters:
     ///   - path: JSON file path.
-    ///   - readingOptions: JSONSerialization reading options.
+    ///   - options: JSONSerialization reading options.
     /// - Returns: Optional dictionary.
     /// - Throws: Throws any errors thrown by Data creation or JSON serialization.
     func jsonFromFile(
@@ -28,7 +28,6 @@ public extension FileManager {
         return json as? [String: Any]
     }
 
-    #if !os(Linux)
     /// SwifterSwift: Read from a JSON file with a given filename.
     ///
     /// - Parameters:
@@ -56,9 +55,8 @@ public extension FileManager {
 
         return nil
     }
-    #endif
 
-    /// SwifterSwift: Creates a unique directory for saving temporary files.
+    /// Creates a unique directory for saving temporary files.
     ///
     /// The directory can be used to create multiple temporary files used for a common purpose.
     ///
@@ -69,7 +67,6 @@ public extension FileManager {
     /// - Returns: A URL to a new directory for saving temporary files.
     /// - Throws: An error if a temporary directory cannot be found or created.
     func createTemporaryDirectory() throws -> URL {
-        #if !os(Linux)
         let temporaryDirectoryURL: URL
         if #available(iOS 10.0, OSX 10.12, tvOS 10.0, watchOS 3.0, *) {
             temporaryDirectoryURL = temporaryDirectory
@@ -80,15 +77,8 @@ public extension FileManager {
                        in: .userDomainMask,
                        appropriateFor: temporaryDirectoryURL,
                        create: true)
-        #else
-        let envs = ProcessInfo.processInfo.environment
-        let env = envs["TMPDIR"] ?? envs["TEMP"] ?? envs["TMP"] ?? "/tmp"
-        let dir = "/\(env)/file-temp.XXXXXX"
-        var template = [UInt8](dir.utf8).map({ Int8($0) }) + [Int8(0)]
-        guard mkdtemp(&template) != nil else { throw CocoaError.error(.featureUnsupported) }
-        return URL(fileURLWithPath: String(cString: template))
-        #endif
     }
+
 }
 
 #endif

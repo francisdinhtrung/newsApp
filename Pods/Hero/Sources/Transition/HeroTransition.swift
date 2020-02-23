@@ -55,7 +55,6 @@ open class HeroTransition: NSObject {
   public var containerColor: UIColor = .black
   public var isUserInteractionEnabled = false
   public var viewOrderingStrategy: HeroViewOrderingStrategy = .auto
-  public var defaultAnimationDirectionStrategy: HeroDefaultAnimationType.Strategy = .forceLeftToRight
 
   public internal(set) var state: HeroTransitionState = .possible {
     didSet {
@@ -70,11 +69,11 @@ open class HeroTransition: NSObject {
   public var isTransitioning: Bool { return state != .possible }
   public internal(set) var isPresenting: Bool = true
 
-  @available(*, renamed: "isTransitioning")
+  @available(*, deprecated, message: "Use isTransitioning instead")
   public var transitioning: Bool {
     return isTransitioning
   }
-  @available(*, renamed: "isPresenting")
+  @available(*, deprecated, message: "Use isPresenting instead")
   public var presenting: Bool {
     return isPresenting
   }

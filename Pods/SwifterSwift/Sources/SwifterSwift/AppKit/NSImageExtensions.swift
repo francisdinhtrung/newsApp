@@ -10,7 +10,7 @@
 import Cocoa
 
 // MARK: - Methods
-public extension NSImage {
+extension NSImage {
 
     /// SwifterSwift: NSImage scaled to maximum size with respect to aspect ratio
     ///

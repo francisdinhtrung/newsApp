@@ -109,22 +109,6 @@ public extension NSView {
         }
     }
 
-    /// SwifterSwift: Background color of the view; also inspectable from Storyboard.
-    @IBInspectable
-    var backgroundColor: NSColor? {
-        get {
-            if let colorRef = layer?.backgroundColor {
-                return NSColor(cgColor: colorRef)
-            } else {
-                return nil
-            }
-        }
-        set {
-            wantsLayer = true
-            layer?.backgroundColor = newValue?.cgColor
-        }
-    }
-
     /// SwifterSwift: Size of view.
     var size: CGSize {
         get {
@@ -149,7 +133,7 @@ public extension NSView {
 }
 
 // MARK: - Methods
-public extension NSView {
+extension NSView {
 
     /// SwifterSwift: Add array of subviews to view.
     ///

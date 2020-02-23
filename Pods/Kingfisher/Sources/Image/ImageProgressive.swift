@@ -56,7 +56,7 @@ public struct ImageProgressive {
 }
 
 protocol ImageSettable: AnyObject {
-    var image: KFCrossPlatformImage? { get set }
+    var image: Image? { get set }
 }
 
 final class ImageProgressiveProvider: DataReceivingSideEffect {
@@ -64,21 +64,17 @@ final class ImageProgressiveProvider: DataReceivingSideEffect {
     var onShouldApply: () -> Bool = { return true }
     
     func onDataReceived(_ session: URLSession, task: SessionDataTask, data: Data) {
-
-        DispatchQueue.main.async {
-            guard self.onShouldApply() else { return }
-            self.update(data: task.mutableData, with: task.callbacks)
-        }
+        update(data: task.mutableData, with: task.callbacks)
     }
 
     private let option: ImageProgressive
-    private let refresh: (KFCrossPlatformImage) -> Void
+    private let refresh: (Image) -> Void
     
     private let decoder: ImageProgressiveDecoder
     private let queue = ImageProgressiveSerialQueue()
     
     init?(_ options: KingfisherParsedOptionsInfo,
-          refresh: @escaping (KFCrossPlatformImage) -> Void) {
+          refresh: @escaping (Image) -> Void) {
         guard let option = options.progressiveJPEG else { return nil }
         
         self.option = option
@@ -92,9 +88,14 @@ final class ImageProgressiveProvider: DataReceivingSideEffect {
     
     func update(data: Data, with callbacks: [SessionDataTask.TaskCallback]) {
         guard !data.isEmpty else { return }
-
+        
         queue.add(minimum: option.scanInterval) { completion in
-
+            guard self.onShouldApply() else {
+                self.queue.clean()
+                completion()
+                return
+            }
+            
             func decode(_ data: Data) {
                 self.decoder.decode(data, with: callbacks) { image in
                     defer { completion() }
@@ -104,22 +105,9 @@ final class ImageProgressiveProvider: DataReceivingSideEffect {
                 }
             }
             
-            let semaphore = DispatchSemaphore(value: 0)
-            var onShouldApply: Bool = false
-            
-            CallbackQueue.mainAsync.execute {
-                onShouldApply = self.onShouldApply()
-                semaphore.signal()
-            }
-            semaphore.wait()
-            guard onShouldApply else {
-                self.queue.clean()
-                completion()
-                return
-            }
-
             if self.option.isFastestScan {
                 decode(self.decoder.scanning(data) ?? Data())
+                
             } else {
                 self.decoder.scanning(data).forEach { decode($0) }
             }
@@ -215,7 +203,7 @@ private final class ImageProgressiveDecoder {
     
     func decode(_ data: Data,
                 with callbacks: [SessionDataTask.TaskCallback],
-                completion: @escaping (KFCrossPlatformImage?) -> Void) {
+                completion: @escaping (Image?) -> Void) {
         guard data.kf.contains(jpeg: .SOF2) else {
             CallbackQueue.mainCurrentOrAsync.execute { completion(nil) }
             return
@@ -244,7 +232,7 @@ private final class ImageProgressiveDecoder {
         if option.isBlur, count < 6 {
             processingQueue.execute {
                 // Progressively reduce blur as we load more scans.
-                let image = KingfisherWrapper<KFCrossPlatformImage>.image(
+                let image = KingfisherWrapper<Image>.image(
                     data: data,
                     options: self.creatingOptions
                 )

@@ -29,9 +29,8 @@ public protocol HeroCompatible {
 }
 
 public extension HeroCompatible {
-  var hero: HeroExtension<Self> {
+  public var hero: HeroExtension<Self> {
     get { return HeroExtension(self) }
-    // swiftlint:disable unused_setter_value
     set { }
   }
 }

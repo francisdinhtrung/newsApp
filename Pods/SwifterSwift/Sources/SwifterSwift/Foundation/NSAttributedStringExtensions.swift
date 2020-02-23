@@ -6,7 +6,7 @@
 //  Copyright © 2016 SwifterSwift
 //
 
-#if canImport(Foundation)
+#if canImport(Foundation) && !os(Linux)
 import Foundation
 
 #if canImport(UIKit)
@@ -27,12 +27,10 @@ public extension NSAttributedString {
     }
     #endif
 
-    #if !os(Linux)
     /// SwifterSwift: Underlined string.
     var underlined: NSAttributedString {
         return applying(attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue])
     }
-    #endif
 
     #if os(iOS)
     /// SwifterSwift: Italicized string.
@@ -41,27 +39,22 @@ public extension NSAttributedString {
     }
     #endif
 
-    #if !os(Linux)
     /// SwifterSwift: Struckthrough string.
     var struckthrough: NSAttributedString {
         return applying(attributes: [.strikethroughStyle: NSNumber(value: NSUnderlineStyle.single.rawValue as Int)])
     }
-    #endif
 
-    #if !os(Linux)
     /// SwifterSwift: Dictionary of the attributes applied across the whole string
     var attributes: [NSAttributedString.Key: Any] {
         guard self.length > 0 else { return [:] }
         return attributes(at: 0, effectiveRange: nil)
     }
-    #endif
 
 }
 
 // MARK: - Methods
 public extension NSAttributedString {
 
-    #if !os(Linux)
     /// SwifterSwift: Applies given attributes to the new instance of NSAttributedString initialized with self object
     ///
     /// - Parameter attributes: Dictionary of attributes
@@ -73,7 +66,6 @@ public extension NSAttributedString {
 
         return copy
     }
-    #endif
 
     #if os(macOS)
     /// SwifterSwift: Add color to NSAttributedString.
@@ -83,9 +75,7 @@ public extension NSAttributedString {
     func colored(with color: NSColor) -> NSAttributedString {
         return applying(attributes: [.foregroundColor: color])
     }
-    #endif
-
-    #if canImport(UIKit)
+    #else
     /// SwifterSwift: Add color to NSAttributedString.
     ///
     /// - Parameter color: text color.
@@ -95,7 +85,6 @@ public extension NSAttributedString {
     }
     #endif
 
-    #if !os(Linux)
     /// SwifterSwift: Apply attributes to substrings matching a regular expression
     ///
     /// - Parameters:
@@ -126,7 +115,6 @@ public extension NSAttributedString {
 
         return applying(attributes: attributes, toRangesMatching: pattern)
     }
-    #endif
 
 }
 

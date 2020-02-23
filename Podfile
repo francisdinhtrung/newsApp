@@ -38,15 +38,16 @@ pod 'RxDataSources'
 pod 'SwifterSwift'
 pod 'SwiftDate'
 pod 'PureLayout'
+pod 'TimelineTableViewCell'
 
 end
-target 'News' do
+target 'Vee' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   rx_cocoa
   rx_swift
   utilities_pods
-  target 'NewsTests' do
+  target 'VeeTests' do
     inherit! :search_paths
     test_pods
   end

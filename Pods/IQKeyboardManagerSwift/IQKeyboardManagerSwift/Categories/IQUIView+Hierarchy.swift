@@ -220,9 +220,10 @@ UIView hierarchy category.
             if (textField == self || textField.ignoreSwitchingByNextPrevious == false) && textField.IQcanBecomeFirstResponder() == true {
                 textfields.append(textField)
             }
+
             //Sometimes there are hidden or disabled views and textField inside them still recorded, so we added some more validations here (Bug ID: #458)
             //Uncommented else (Bug ID: #625)
-            else if textField.subviews.count != 0  && isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 {
+            if textField.subviews.count != 0  && isUserInteractionEnabled == true && isHidden == false && alpha != 0.0 {
                 for deepView in textField.deepResponderViews() {
                     textfields.append(deepView)
                 }
@@ -247,13 +248,11 @@ UIView hierarchy category.
         
         var IQcanBecomeFirstResponder = false
         
-        if self.conforms(to: UITextInput.self) {
-            //  Setting toolbar to keyboard.
-            if let textView = self as? UITextView {
-                IQcanBecomeFirstResponder = textView.isEditable
-            } else if let textField = self as? UITextField {
-                IQcanBecomeFirstResponder = textField.isEnabled
-            }
+        //  Setting toolbar to keyboard.
+        if let textField = self as? UITextField {
+            IQcanBecomeFirstResponder = textField.isEnabled
+        } else if let textView = self as? UITextView {
+            IQcanBecomeFirstResponder = textView.isEditable
         }
         
         if IQcanBecomeFirstResponder == true {
@@ -320,6 +319,13 @@ UIView hierarchy category.
         return depth
     }
     
+}
+
+@objc public extension UIViewController {
+
+    func parentIQContainerViewController() -> UIViewController? {
+        return self
+    }
 }
 
 extension NSObject {

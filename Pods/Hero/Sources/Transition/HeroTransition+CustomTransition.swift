@@ -24,7 +24,7 @@ import UIKit
 
 // custom transition helper, used in hero_replaceViewController
 public extension HeroTransition {
-  func transition(from: UIViewController, to: UIViewController, in view: UIView, completion: ((Bool) -> Void)? = nil) {
+  public func transition(from: UIViewController, to: UIViewController, in view: UIView, completion: ((Bool) -> Void)? = nil) {
     guard !isTransitioning else { return }
     self.state = .notified
     isPresenting = true

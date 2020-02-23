@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import QuartzCore
+import MetalKit
 
 let π = CGFloat.pi
 
@@ -40,25 +40,25 @@ internal struct KeySet<Key: Hashable, Value: Hashable> {
 }
 
 internal extension CGSize {
-  var center: CGPoint {
+  internal var center: CGPoint {
     return CGPoint(x: width / 2, y: height / 2)
   }
-  var point: CGPoint {
+  internal var point: CGPoint {
     return CGPoint(x: width, y: height)
   }
-  func transform(_ t: CGAffineTransform) -> CGSize {
+  internal func transform(_ t: CGAffineTransform) -> CGSize {
     return self.applying(t)
   }
-  func transform(_ t: CATransform3D) -> CGSize {
+  internal func transform(_ t: CATransform3D) -> CGSize {
     return self.applying(CATransform3DGetAffineTransform(t))
   }
 }
 
 internal extension CGRect {
-  var center: CGPoint {
+  internal var center: CGPoint {
     return CGPoint(x: origin.x + width / 2, y: origin.y + height / 2)
   }
-  var bounds: CGRect {
+  internal var bounds: CGRect {
     return CGRect(origin: CGPoint.zero, size: size)
   }
   init(center: CGPoint, size: CGSize) {
@@ -66,83 +66,81 @@ internal extension CGRect {
   }
 }
 
-internal extension CGFloat {
-  func clamp(_ a: CGFloat, _ b: CGFloat) -> CGFloat {
+extension CGFloat {
+  internal func clamp(_ a: CGFloat, _ b: CGFloat) -> CGFloat {
     return self < a ? a : (self > b ? b : self)
   }
 }
-
-internal extension TimeInterval {
-  func clamp(_ a: TimeInterval, _ b: TimeInterval) -> TimeInterval {
+extension TimeInterval {
+  internal func clamp(_ a: TimeInterval, _ b: TimeInterval) -> TimeInterval {
     return self < a ? a : (self > b ? b : self)
   }
 }
-
-internal extension CGPoint {
-  func translate(_ dx: CGFloat, dy: CGFloat) -> CGPoint {
+extension CGPoint {
+  internal func translate(_ dx: CGFloat, dy: CGFloat) -> CGPoint {
     return CGPoint(x: self.x + dx, y: self.y + dy)
   }
 
-  func transform(_ t: CGAffineTransform) -> CGPoint {
+  internal func transform(_ t: CGAffineTransform) -> CGPoint {
     return self.applying(t)
   }
 
-  func transform(_ t: CATransform3D) -> CGPoint {
+  internal func transform(_ t: CATransform3D) -> CGPoint {
     return self.applying(CATransform3DGetAffineTransform(t))
   }
 
-  func distance(_ b: CGPoint) -> CGFloat {
+  internal func distance(_ b: CGPoint) -> CGFloat {
     return sqrt(pow(self.x - b.x, 2) + pow(self.y - b.y, 2))
   }
 
-  static func + (left: CGPoint, right: CGPoint) -> CGPoint {
+  internal static func + (left: CGPoint, right: CGPoint) -> CGPoint {
     return CGPoint(x: left.x + right.x, y: left.y + right.y)
   }
 
-  static func - (left: CGPoint, right: CGPoint) -> CGPoint {
+  internal static func - (left: CGPoint, right: CGPoint) -> CGPoint {
     return CGPoint(x: left.x - right.x, y: left.y - right.y)
   }
 
-  static func / (left: CGPoint, right: CGFloat) -> CGPoint {
+  internal static func / (left: CGPoint, right: CGFloat) -> CGPoint {
     return CGPoint(x: left.x / right, y: left.y / right)
   }
-  static func / (left: CGPoint, right: CGPoint) -> CGPoint {
+  internal static func / (left: CGPoint, right: CGPoint) -> CGPoint {
     return CGPoint(x: left.x / right.x, y: left.y / right.y)
   }
-  static func * (left: CGPoint, right: CGFloat) -> CGPoint {
+  internal static func * (left: CGPoint, right: CGFloat) -> CGPoint {
     return CGPoint(x: left.x * right, y: left.y * right)
   }
-  static func * (left: CGPoint, right: CGSize) -> CGPoint {
+  internal static func * (left: CGPoint, right: CGSize) -> CGPoint {
     return CGPoint(x: left.x * right.width, y: left.y * right.height)
   }
-  static func * (left: CGFloat, right: CGPoint) -> CGPoint {
+  internal static func * (left: CGFloat, right: CGPoint) -> CGPoint {
     return right * left
   }
 
-  static func * (left: CGPoint, right: CGPoint) -> CGPoint {
+  internal static func * (left: CGPoint, right: CGPoint) -> CGPoint {
     return CGPoint(x: left.x * right.x, y: left.y * right.y)
   }
 
-  static prefix func - (point: CGPoint) -> CGPoint {
+  internal static prefix func - (point: CGPoint) -> CGPoint {
     return .zero - point
   }
 
-  static func abs(_ p: CGPoint) -> CGPoint {
+  internal static func abs(_ p: CGPoint) -> CGPoint {
     return CGPoint(x: Swift.abs(p.x), y: Swift.abs(p.y))
   }
 }
 
-internal extension CGSize {
-  static func * (left: CGSize, right: CGFloat) -> CGSize {
+extension CGSize {
+  internal static func * (left: CGSize, right: CGFloat) -> CGSize {
     return CGSize(width: left.width * right, height: left.height * right)
   }
-  static func * (left: CGSize, right: CGSize) -> CGSize {
+  internal static func * (left: CGSize, right: CGSize) -> CGSize {
     return CGSize(width: left.width * right.width, height: left.height * right.height)
   }
-  static func / (left: CGSize, right: CGSize) -> CGSize {
+  internal static func / (left: CGSize, right: CGSize) -> CGSize {
     return CGSize(width: left.width / right.width, height: left.height / right.height)
   }
-  static func / (left: CGPoint, right: CGSize) -> CGPoint {
+  internal static func / (left: CGPoint, right: CGSize) -> CGPoint {
     return CGPoint(x: left.x / right.width, y: left.y / right.height)
   }
 }
